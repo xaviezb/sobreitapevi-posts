@@ -1,43 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>@sobreitapevi - Criador de Posts</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body class="light">
-  <div class="post-container">
-    <header class="post-header">
-      <img src="perfil.png" alt="Perfil" class="profile-pic">
-      <div class="post-info">
-        <span class="name">sobreitapevi</span>
-        <span class="handle">@sobreitapevi</span>
-        <span class="verified">✔️</span>
-        <span id="post-type" class="post-type">[Notícia]</span>
+  <div class="app">
+    <!-- Barra superior -->
+    <div class="topbar">
+      <div class="branding">
+        <img id="profilePicHeader" src="perfil.png" alt="Perfil" class="profile-pic"/>
+        <div class="id-line">
+          <span class="name">sobreitapevi</span>
+          <span class="handle">@sobreitapevi</span>
+          <span class="verified">✔️</span>
+          <span id="post-type" class="post-type">[Notícia]</span>
+        </div>
       </div>
-      <div class="theme-toggle">
-        <button onclick="toggleTheme()">🌗 Alternar Tema</button>
+      <div class="controls">
+        <button id="themeBtn" class="btn">🌗 Tema</button>
       </div>
-    </header>
+    </div>
 
-    <main class="post-content">
-      <textarea id="post-text" placeholder="Digite o texto do post..."></textarea>
-      <input type="file" id="post-media" accept="image/*,video/*">
-    </main>
+    <!-- Painel de controle -->
+    <div class="panel">
+      <div class="panel-group">
+        <div class="panel-item">
+          <label class="label">Foto de perfil (opcional, fixa)</label>
+          <input id="profileInput" class="file" type="file" accept="image/*"/>
+          <p class="tip">Se não selecionar nada, a foto padrão (perfil.png) será usada. Para trocar permanentemente, substitua o arquivo perfil.png.</p>
+        </div>
 
-    <footer class="post-footer">
-      <label for="type-select">Tipo de Postagem:</label>
-      <select id="type-select" onchange="updatePostType()">
-        <option value="Notícia">Notícia</option>
-        <option value="Fofoca">Fofoca</option>
-        <option value="Evento">Evento</option>
-        <option value="Alerta">Alerta</option>
-        <option value="Meio Ambiente">Meio Ambiente</option>
-      </select>
-    </footer>
+        <div class="panel-item">
+          <label class="label">Tipo de publicação</label>
+          <select id="modeSelect" class="select">
+            <option value="feed">Feed (1:1)</option>
+            <option value="reels">Reels (9:16)</option>
+          </select>
+        </div>
+
+        <div class="panel-item">
+          <label class="label">Categoria</label>
+          <select id="typeSelect" class="select">
+            <option>Notícia</option>
+            <option>Fofoca</option>
+            <option>Evento</option>
+            <option>Alerta</option>
+            <option>Meio Ambiente</option>
+            <option>Obras</option>
+          </select>
+        </div>
+
+        <div class="panel-item">
+          <label class="label">Texto do post</label>
+          <textarea id="postText" class="textarea" placeholder="Digite o texto do post..."></textarea>
+        </div>
+      </div>
+
+      <div class="panel-group">
+        <div class="panel-item">
+          <label class="label">Mídia (imagem ou vídeo)</label>
+          <input id="mediaInput" class="file" type="file" accept="image/*,video/*"/>
+        </div>
+
+        <div class="panel-item">
+          <label class="label">Marca d’água (PNG opcional)</label>
+          <input id="wmInput" class="file" type="file" accept="image/png"/>
+          <div class="wm-row">
+            <label class="sub">Posição</label>
+            <select id="wmPos" class="select">
+              <option value="bottom-right">Inferior direita</option>
+              <option value="bottom-left">Inferior esquerda</option>
+              <option value="top-right">Superior direita</option>
+              <option value="top-left">Superior esquerda</option>
+              <option value="center">Centro</option>
+            </select>
+            <label class="sub">Opacidade</label>
+            <input id="wmOpacity" class="range" type="range" min="0" max="100" value="60"/>
+            <label class="sub">Tamanho</label>
+            <input id="wmScale" class="range" type="range" min="20" max="300" value="100"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-group">
+        <div class="panel-item">
+          <label class="label">Ajuste de imagem (corte)</label>
+          <div class="crop-controls">
+            <label class="sub">Zoom</label>
+            <input id="zoom" class="range" type="range" min="100" max="300" value="100"/>
+            <label class="sub">Posição X</label>
+            <input id="posX" class="range" type="range" min="-400" max="400" value="0"/>
+            <label class="sub">Posição Y</label>
+            <input id="posY" class="range" type="range" min="-400" max="400" value="0"/>
+          </div>
+          <p class="tip">Dica: arraste a imagem no preview para ajustar a posição. Use Zoom e Posição X/Y para refinar.</p>
+        </div>
+
+        <div class="panel-item">
+          <button id="exportBtn" class="btn primary">Exportar imagem</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview com moldura estilo Twitter -->
+    <div class="preview-wrap">
+      <div id="frame" class="frame feed">
+        <div class="header-line">
+          <img id="profilePicInline" src="perfil.png" alt="Perfil" class="profile-pic small"/>
+          <div class="id-line">
+            <span class="name">sobreitapevi</span>
+            <span class="handle">@sobreitapevi</span>
+            <span class="verified">✔️</span>
+            <span id="postTypeInline" class="post-type">[Notícia]</span>
+          </div>
+          <span class="timestamp">1:14 PM · 26 Fev 2022</span>
+        </div>
+
+        <div id="tweetText" class="tweet-text"></div>
+
+        <div class="media-area">
+          <div id="imageCrop" class="crop-area">
+            <img id="imageEl" class="crop-img" src="" alt="" />
+          </div>
+          <video id="videoEl" class="video" controls></video>
+        </div>
+
+        <img id="wmEl" class="wm" src="" alt="marca d'água"/>
+      </div>
+    </div>
   </div>
 
+  <canvas id="exportCanvas" width="1080" height="1080" style="display:none;"></canvas>
   <script src="script.js"></script>
 </body>
 </html>
+
