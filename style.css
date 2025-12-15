@@ -1,74 +1,102 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
+:root {
+  --bg-light: #ffffff;
+  --fg-light: #0f1419;
+  --bg-dark: #0d1117;
+  --fg-dark: #c9d1d9;
+  --blue: #1da1f2;
+  --gray: #8b949e;
+  --border: #30363d;
 }
 
-.post-container {
-  width: 500px;
-  border-radius: 10px;
-  padding: 15px;
-}
+body { margin: 0; font-family: Inter, Arial, sans-serif; }
+.light { background: var(--bg-light); color: var(--fg-light); }
+.dark  { background: var(--bg-dark);  color: var(--fg-dark); }
 
-.light {
-  background: #fff;
-  color: #000;
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
+@media (max-width: 900px) { .app { grid-template-columns: 1fr; } }
 
-.dark {
-  background: #111;
-  color: #fff;
-}
+.topbar { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
 
-.post-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.profile-pic { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+.profile-pic.small { width: 40px; height: 40px; }
 
-.profile-pic {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
+.id-line { display: flex; align-items: center; gap: 6px; }
+.name { font-weight: 700; }
+.handle { color: var(--gray); }
+.verified { color: var(--blue); }
+.post-type { opacity: .6; font-size: .9em; }
 
-.post-info {
-  flex-grow: 1;
-  margin-left: 10px;
-}
+.btn { padding: 8px 12px; border: 1px solid var(--border); background: transparent; color: inherit; border-radius: 8px; cursor: pointer; }
+.btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
 
-.name {
-  font-weight: bold;
-}
-
-.handle {
-  color: gray;
-  margin-left: 5px;
-}
-
-.verified {
-  color: #1da1f2;
-  margin-left: 5px;
-}
-
-.post-type {
-  opacity: 0.6;
-  margin-left: 10px;
-  font-size: 0.9em;
-}
-
-.post-content {
-  margin-top: 15px;
-}
-
-textarea {
+.panel { border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.panel-group { display: grid; gap: 12px; margin-bottom: 12px; }
+.panel-item { display: grid; gap: 8px; }
+.label { font-weight: 600; }
+.sub { font-size: 12px; color: var(--gray); }
+.select, .file, .textarea, .range {
   width: 100%;
-  height: 80px;
-  border-radius: 5px;
-  padding: 10px;
+  border: 1px solid var(--border);
+  background: transparent; color: inherit;
+  border-radius: 8px; padding: 8px;
+}
+.textarea { min-height: 80px; }
+
+.wm-row { display: grid; grid-template-columns: 100px 1fr 100px 1fr 100px 1fr; gap: 8px; align-items: center; }
+@media (max-width: 600px) { .wm-row { grid-template-columns: 1fr 1fr; } }
+
+.crop-controls { display: grid; grid-template-columns: 100px 1fr; gap: 8px; align-items: center; }
+.tip { margin: 0; color: var(--gray); }
+
+.preview-wrap { border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: flex; justify-content: center; }
+
+.frame {
+  position: relative;
+  width: 540px; height: 540px; /* Feed padrão */
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  box-sizing: border-box;
+}
+.frame.reels { width: 360px; height: 640px; } /* Preview 9:16 */
+
+.header-line { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.timestamp { color: var(--gray); font-size: 12px; }
+
+.tweet-text { font-size: 14px; line-height: 1.45; margin-bottom: 10px; white-space: pre-wrap; }
+
+.media-area {
+  position: relative;
+  width: 100%; height: calc(100% - 120px);
+  border-radius: 12px; overflow: hidden; background: #000;
 }
 
-.post-footer {
-  margin-top: 15px;
+.crop-area { position: absolute; inset: 0; overflow: hidden; }
+.crop-img {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  user-select: none; cursor: grab;
+  max-width: none; max-height: none;
+}
+.crop-img:active { cursor: grabbing; }
+
+.video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: none;
+}
+
+.wm {
+  position: absolute;
+  pointer-events: none;
+  opacity: .6;
+  width: 20%;
+  display: none;
 }
