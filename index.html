@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@sobreitapevi - Criador de Posts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light">
+  <div class="post-container">
+    <header class="post-header">
+      <img src="perfil.png" alt="Perfil" class="profile-pic">
+      <div class="post-info">
+        <span class="name">sobreitapevi</span>
+        <span class="handle">@sobreitapevi</span>
+        <span class="verified">✔️</span>
+        <span id="post-type" class="post-type">[Notícia]</span>
+      </div>
+      <div class="theme-toggle">
+        <button onclick="toggleTheme()">🌗 Alternar Tema</button>
+      </div>
+    </header>
+
+    <main class="post-content">
+      <textarea id="post-text" placeholder="Digite o texto do post..."></textarea>
+      <input type="file" id="post-media" accept="image/*,video/*">
+    </main>
+
+    <footer class="post-footer">
+      <label for="type-select">Tipo de Postagem:</label>
+      <select id="type-select" onchange="updatePostType()">
+        <option value="Notícia">Notícia</option>
+        <option value="Fofoca">Fofoca</option>
+        <option value="Evento">Evento</option>
+        <option value="Alerta">Alerta</option>
+        <option value="Meio Ambiente">Meio Ambiente</option>
+      </select>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
